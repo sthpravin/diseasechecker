@@ -2,7 +2,7 @@
 /* Login Container (default to float:right) */
 #loginContainer {
     position:relative;
-    float:right;
+    float:left;
     font-size:12px;
 }
 
@@ -156,8 +156,4 @@ fieldset#body {
 
 input:focus {
     outline:none;
-}
-
-#gender_select_text{
-    color: black !important
 }
