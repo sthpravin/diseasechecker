@@ -32,6 +32,12 @@
                     <li>
                         <a class="page-scroll" href="../#contact">Contact</a>
                     </li>
+                    <li>
+                        <form class="page-scroll"  action="/logout/" method="POST">
+                            {% csrf_token %}
+                            <input type = "submit" value="LOGOUT"/><br/>
+                        </form>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -45,9 +51,24 @@
         <div class="intro-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <p>Name<strong>Hello {{ user.user_name }}</strong></p>
+                    <div class="col-md-3 pull-md-9" style="text-align: left">
+                        <p>Name</p>
+                        <p>Gender</p>
+                        <p>Email</p>
                     </div>
+                    <div class="col-md-9 push-md-3" style="text-align: left">
+                        <p>{{ user.user_name }}</p>
+                        <p>{{ user.gender}}</p>
+                        <p>{{ user.email}}</p>
+                    </div>                    
+                </div>
+                <div style="text-align: left">
+                    <h3>Diagnosis History</h3>
+                    <ul>
+                        {% for a in user.possible_disease %}
+                        <li>{{ a }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

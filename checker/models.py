@@ -8,13 +8,12 @@ class Symptom(models.Model):
     def __str__(self):
         return self.name
         
-
 class Disease(models.Model):
     disease_name = models.CharField(max_length=100)
     symptoms = models.ForeignKey(Symptom, null=True, blank=True)
     description = models.CharField(max_length=1000, null=True)
+    specialists = models.CharField(max_length=100,null=True)
     
-
     def __str__(self):
         return self.disease_name
 
@@ -40,4 +39,3 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.name
-    
