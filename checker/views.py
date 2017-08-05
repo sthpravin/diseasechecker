@@ -1,7 +1,7 @@
 from . import nn3
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Patient
+from .models import Patient, Disease
 from .forms import PatientForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -71,7 +71,7 @@ def check(request):
     p = Patient.objects.get(user_name=current_user)
     savedDisease = p.possible_disease
     for i in predictedDisease: 
-        savedDisease = savedDisease + '\n' + i
+        savedDisease = savedDisease + '+' + i
         diseaseDesp.append(Disease.objects.get(disease_name=i).description)
     p.possible_disease = savedDisease
     p.save()
@@ -81,4 +81,5 @@ def check(request):
 
 def profile(request):
     p = Patient.objects.get(user_name=request.user)
-    return render(request, 'checker/profile.html',{ 'user' : p})
+    arr = p.possible_disease.split('+')
+    return render(request, 'checker/profile.html',{ 'diseases' : arr, 'user': p })

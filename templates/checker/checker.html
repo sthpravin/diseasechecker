@@ -32,10 +32,10 @@
                     <li>
                         <a class="page-scroll" href="../#contact">Contact</a>
                     </li>
-                    <li>
-                        <form class="page-scroll" action="/logout/" method="POST">
+                    <li>                        
+                        <form action="/logout/" method="POST">
                             {% csrf_token %}
-                            <input style = "color: black" type = "submit" value="LOGOUT"/><br/>
+                            <input style="padding-top: 15px; color: white" class="btn btn-link" type = "submit" value="LOGOUT"/><br/>
                         </form>
                     </li>
                 </ul>
@@ -61,11 +61,6 @@
                             <textarea class="form-control" form="sym_box" rows="10" cols="50" name="q"></textarea>
                             <br>
 							<input class="btn btn-primary" type = "submit" value="Check For Diseases"/><br/>
-						</form>
-                        <br><br><br><br><br>
-						<form action="/logout/" method="POST">
-							{% csrf_token %}
-							<input style = "color: black" type = "submit" value="LOGOUT"/><br/>
 						</form>
                     </div>
                 </div>

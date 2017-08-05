@@ -10,9 +10,6 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> <span class="light">Start</span>
-                </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,33 +42,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                    <div class="register_form_div">
-                    	<form id="loginForm" action="/login/" method="POST">
-                            {% csrf_token %}
-                            <fieldset id="body">
-                                <fieldset>
-                                    <label for="User">Username</label>
-                                    <input type="text" name="name" id="User" />
-                                </fieldset>
-                                <fieldset>
-                                    <label for="gender">Gender</label>
-                                    <select type="text" id="gender" name="gender">
-			                            <span id="gender_select_text"> <option selected>Male</option>
-			                            <option>Female</option></span>
-			                        </select>
-                                </fieldset>
-                                <fieldset>
-                                    <label for="email">email</label>
-                                    <input type="email" name="email"/>
-                                </fieldset>
-                                <fieldset>
-                                    <label for="password">Password</label>
-                                    <input type="password" name="psw" id="password" />
-                                </fieldset>
-
-                                <input type = "submit" value="Register" id="register"/>
-                            </fieldset>
-                        </form> 
+                    <div style="color:black;">
+                    	<p>Fill in the form below to register</p>
+    <form action="login\" method="POST">
+        {% csrf_token %}
+        <!--{% for field in form %}
+        {{ field }}<br/>
+        {% endfor %} -->
+        {{ form.as_p}}
+        <input type = "submit" value="Register"><br/>
+    </form>
                         </div>
                     </div>
                 </div>

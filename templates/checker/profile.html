@@ -11,8 +11,7 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
-                </button>
-                
+                </button>             
                                     
             </div>
 
@@ -33,9 +32,9 @@
                         <a class="page-scroll" href="../#contact">Contact</a>
                     </li>
                     <li>
-                        <form class="page-scroll"  action="/logout/" method="POST">
+                        <form action="/logout/" method="POST">
                             {% csrf_token %}
-                            <input type = "submit" value="LOGOUT"/><br/>
+                            <input style="padding-top: 15px; color: white" class="btn btn-link" type = "submit" value="LOGOUT"/><br/>
                         </form>
                     </li>
                 </ul>
@@ -64,11 +63,12 @@
                 </div>
                 <div style="text-align: left">
                     <h3>Diagnosis History</h3>
-                    <ul>
-                        {% for a in user.possible_disease %}
-                        <li>{{ a }}</li>
+                        
+                        {% for a in diseases %}
+                        {{ a }}
+                        <br>
                         {% endfor %}
-                    </ul>
+                    
                 </div>
             </div>
         </div>

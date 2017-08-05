@@ -1,6 +1,6 @@
 {% extends 'checker/base.html' %}
 
-{% block title %}Results{% endblock %}
+{% block title %}Resultss{% endblock %}
 
 {% block navbar %}
 	 <!-- Navigation -->
@@ -10,8 +10,8 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i><button type = "submit" action="/logout/" method="POST" value="LOGOUT"/>
+                <a href="../../login/profile">
+                My Profile
                 </a>
             </div>
 
@@ -30,6 +30,13 @@
                     <li>
                         <a class="page-scroll" href="../#contact">Contact</a>
                     </li>
+                    <li>                        
+                        <form action="/logout/" method="POST">
+                            {% csrf_token %}
+                            <input style="padding-top: 15px; color: white" class="btn btn-link" type = "submit" value="LOGOUT"/><br/>
+                        </form>
+                    </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -43,27 +50,32 @@
         <div class="intro-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-					{{ user }}
+                    <div class="container-fluid" style="padding-top: 80px">
+					<h2>{{ user }}</h2>
 	
 					{% if diseases %}
-					
-					<p>Probable Disease:</p>
+					<div class="well well-sm" style="color:black; opacity: 70%">
+					<h3>Probable Disease:
 					{% for key, value in diseases.items %}
-					<p>{{key}}</p>
-					<p>Description: {{value}}</p>
-					<a href="https://en.wikipedia.org/wiki/{{key}}" target="_blank"> More on {{key}}</a>
+					{{key}}</h3></div>
+
+					<div class="well well-lg" style="font-family: 'Times New Roman', Times, serif; font-style: normal; color: black; opacity: 70;text-align: justify"><h4>Description:</h4> <p>{{value}}</p>
+					<a style="color:purple" href="https://en.wikipedia.org/wiki/{{key}}" target="_blank"> More on {{key}}</a>
+                    </div>
 					{% endfor %}
 					{% else %}
-					<p>Sorry No matching disease found.</p>
-					{% endif %}
-					
+					<div style="font-family: 'Times New Roman', Times, serif; font-style: normal; color:black" class="well well-sm" opacity: 70%>Sorry No matching disease found.
+					{% endif %}</div>
+
+					<div style="font-family: 'Times New Roman', Times, serif; font-style: normal; color:black" class="well well-sm" opacity: 70%>Note: Please be aware that this is only a prediction. Please contact referred specialist for further analysis and treatment.
+                    <br>{{ user.specialists }}</div>              
 						
 
 
 					
 					<p>Thank You<p>
                     </div>
+                    
                 </div>
             </div>
         </div>
