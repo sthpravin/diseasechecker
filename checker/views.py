@@ -15,8 +15,7 @@ def index(request):
 def user_login(request):
     '''
     uname = request.POST['name']
-    key = request.POST['psw']
-    
+    key = request.POST['psw']    
     try:
         if key == Patient.objects.get(fname=uname).password:
             return render(request, 'checker/checker.html', {})
