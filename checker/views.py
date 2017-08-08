@@ -1,7 +1,7 @@
 from . import nn3
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Patient, Disease
+from .models import Patient, Disease, Doctor
 from .forms import PatientForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -64,7 +64,7 @@ def register2(request):
 def check(request):
     ip = request.POST['q']
     diseaseDesp = []
-    
+    doctors = []
     current_user = request.user
     predictedDisease = nn3.compute(ip)
     p = Patient.objects.get(user_name=current_user)
@@ -72,11 +72,14 @@ def check(request):
     for i in predictedDisease: 
         savedDisease = savedDisease + '+' + i
         diseaseDesp.append(Disease.objects.get(disease_name=i).description)
+        dis = Disease.objects.get(disease_name=i)
+        doc = Doctor.objects.get(specialization = dis.specialists)
+        doctors.append(doc) 
     p.possible_disease = savedDisease
     p.save()
 
     diseases = dict(zip(predictedDisease, diseaseDesp))
-    return render(request, 'checker/showResult.html', {'diseases': diseases, 'user':current_user})
+    return render(request, 'checker/showResult.html', {'diseases': diseases, 'user':current_user, 'doctor': doctors})
 
 def profile(request):
     p = Patient.objects.get(user_name=request.user)

@@ -1,0 +1,23 @@
+yellow fever:
+
+back pain
+dizziness
+fever
+headache
+loss of apetite
+muscle pain
+nausea
+red eyes
+sensitivity
+vomiting
+
+tonsilitis:
+
+yellow skin
+vomiting
+sweat
+stomach pain
+nausea
+loss of apetite
+fever
+chill
