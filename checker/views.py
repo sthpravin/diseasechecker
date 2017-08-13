@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login, logout
 def index(request):
     return render(request, 'checker/index.html', { })
 
-
 def user_login(request):
     '''
     uname = request.POST['name']
@@ -48,39 +47,51 @@ def register(request):
     return render(request, 'checker/register.html', {'form': form})
 
 def register2(request):
-    name = request.POST['user_name']
-    emailInput = request.POST['email']
-    psw = request.POST['password']
-    gen = request.POST['gender']
-    
-    p = Patient(user_name=name, email= emailInput, password=psw, gender=gen, possible_disease=' ')
-    p.save()
-    
-    user = User.objects.create_user(username=name, password=psw)
-    user.save()
+    if request.POST:
+        name = request.POST.get('user_name')
+        emailInput = request.POST.get('email')
+        psw = request.POST.get('password')
+        gen = request.POST.get('gender')
+
+    user = authenticate(username=name, password=psw)
+    if user is not None:
+        if user.is_active:
+            user_created = True
+        else:
+            user_created = False
+    else:    
+        p = Patient(user_name=name, email= emailInput, password=psw, gender=gen, possible_disease=' ')
+        p.save()        
+        user = User.objects.create_user(username=name, password=psw)
+        user.save()
     return render(request, 'checker/gotohome.html', {})
 
 
 def check(request):
-    ip = request.POST['q']
-    diseaseDesp = []
-    doctors = []
-    current_user = request.user
-    predictedDisease = nn3.compute(ip)
-    p = Patient.objects.get(user_name=current_user)
-    savedDisease = p.possible_disease
-    for i in predictedDisease: 
-        savedDisease = savedDisease + '+' + i
-        diseaseDesp.append(Disease.objects.get(disease_name=i).description)
-        dis = Disease.objects.get(disease_name=i)
-        doc = Doctor.objects.get(specialization = dis.specialists)
-        doctors.append(doc) 
-    p.possible_disease = savedDisease
-    p.save()
-
-    diseases = dict(zip(predictedDisease, diseaseDesp))
-    return render(request, 'checker/showResult.html', {'diseases': diseases, 'user':current_user, 'doctor': doctors})
-
+    try:
+        ip = request.POST['q']
+        diseaseDesp = []
+        doctors = []
+        current_user = request.user
+        predictedDisease = nn3.compute(ip)
+        p = Patient.objects.get(user_name=current_user)
+        savedDisease = p.possible_disease
+        
+        for i in predictedDisease: 
+            savedDisease = savedDisease + '+' + i
+            diseaseDesp.append(Disease.objects.get(disease_name=i).description)
+            dis = Disease.objects.get(disease_name=i)
+            try:
+                doc = Doctor.objects.get(specialization = dis.specialists)
+                doctors.append(doc)             
+            except:
+                doctors.append('')
+        p.possible_disease = savedDisease
+        p.save()       
+        diseases = dict(zip(predictedDisease, diseaseDesp))
+        return render(request, 'checker/showResult.html', {'diseases': diseases, 'user':current_user, 'doctor': doctors})
+    except:
+        return render(request, 'checker/index.html',{'error1':True})
 def profile(request):
     p = Patient.objects.get(user_name=request.user)
     arr = p.possible_disease.split('+')

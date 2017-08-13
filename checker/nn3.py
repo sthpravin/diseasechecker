@@ -65,9 +65,11 @@ def compute(ip):
 
 
     outputNet = forward(X,W1,W2,W3).T
+    outputNet[np.logical_or(outputNet<0.01,outputNet>1)]=0.0
+    #outputNet = np.round(outputNet)
 
-    outputNet = np.round(outputNet)
     
+
     s=[]
 
     s = np.squeeze(np.asarray(outputNet))
@@ -77,9 +79,8 @@ def compute(ip):
     possibleDiseases = []
     counter = 0
     for j in s:
-        if j == 1:
+        if j != 0.0:
             possibleDiseases.append(diseaseLabel[0][counter])
         counter = counter + 1
 
     return(possibleDiseases)
-

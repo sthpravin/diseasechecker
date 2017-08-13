@@ -67,10 +67,6 @@ def forward(X,w1, w2,w3):
     yHat = sigmoid(z4)                                  # applying activation to z3 to get the observed output yHat
     return(yHat)                                        # return observerd output in the order of n * 1
 
-
-
-
-
 def costFunction(X, Y):
     J = 0.5 * sum(np.square(X-Y))
     return J
@@ -96,16 +92,11 @@ def weightUpdate(delW1,delW2, delW3):
     W2 = W2 + alpha * delW2
     W3 = W3 + alpha * delW3
 
-
-
-
-
-
 # start the training of neural net
 
 for epoch in range(20000):
     ip = 0
-    for x0 in X:
+    for x0 in X:  
         y0 = Y[ip]
         ip = ip + 1
         a,b,c = backPropagation(x0,y0)

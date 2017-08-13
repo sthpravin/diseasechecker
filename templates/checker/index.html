@@ -73,6 +73,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
+                    <p>{% if error1 %}
+                        Doctor not found
+                    </p>{% endif %}
                     <h1 class="brand-heading">Disease Checker</h1>
                     <p class="intro-text">An instant way to find out possible disease
                         </p>
@@ -99,12 +102,15 @@
 <section id="download" class="content-section text-center">
     <div class="download-section">
         <div class="container">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>FAQs</h2>
-                <p>1. How to find out possible disease?</p>
-                <p>First of all, register for an account. Use the username and password to login. After authentication, checker page will be loaded where you can input your symptoms and click on 'Check for diseases' button.</p>
-                <p>2. How to get treatment?</p>
-                <p>When the possible disease is diagnosed, a doctor is also recommended for contact.</p>
+            <div class="col-lg-8 col-lg-offset-2" style="text-align: left"> 
+                <h2 style="text-align: center">FAQs</h2>
+                <ul>
+                <li><p> How to find out possible disease?</p>
+                <p>First of all, register for an account. Use the username and password to login. After authentication, checker page will be loaded where you can input your symptoms and click on 'Check for diseases' button.</p></li>
+                <br>
+                <li><p> How to get treatment?</p>
+                <p>When the possible disease is diagnosed, a doctor is also recommended for contact.</p></li>
+                </ul>
             </div>
         </div>
     </div>
